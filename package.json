@@ -1,0 +1,22 @@
+{
+  "name": "nodeuserauthentication",
+  "version": "1.0.0",
+  "description": "Node Js user authetication using json files",
+  "main": "index.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "keywords": [
+    "node",
+    "authetication"
+  ],
+  "author": "Kritika Poojari",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "uniqid": "^5.2.0"
+  }
+}
