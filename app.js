@@ -9,14 +9,19 @@ dotenv.config({ path: "./config.env" });
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
-
+app.get("/", (req, res) => {
+	res.json({
+		message: "Home Page",
+		status: "Successfull",
+	});
+});
 app.use("/users", userRouter);
 app.get("/dashboard", (req, res) => {
-    console.log("headers", req.headers);
-    res.sendFile(path.join(__dirname, "public", "dashboard.html"));
+	console.log("headers", req.headers);
+	res.sendFile(path.join(__dirname, "public", "dashboard.html"));
 });
 
 app.listen(
-    process.env.PORT,
-    console.log(`Server started on port ${process.env.PORT}`)
+	process.env.PORT,
+	console.log(`Server started on port ${process.env.PORT}`)
 );
