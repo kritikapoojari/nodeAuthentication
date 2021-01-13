@@ -34,5 +34,11 @@
     "email": "kritika.poojari@gmail.com",
     "password": "kri",
     "createdAt": 1609241237919
+  },
+  {
+    "userId": "31w8di3jkjv9gau5",
+    "email": "panda@gmail.com",
+    "password": "$2a$10$MzwCY16vIjrwreyttdZxMONN8bxECgD1SSUgpPLtywiaWmeVCsQZK",
+    "createdAt": 1610532474844
   }
 ]

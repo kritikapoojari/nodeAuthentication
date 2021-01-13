@@ -8,7 +8,6 @@ const fileName = path.join(__dirname, "..", "data", "users.json");
 const users = JSON.parse(fs.readFileSync(fileName, "utf-8"));
 
 const checkRequestBody = (req, res, next) => {
-	// let validationArray = ["email", "password", "checkPassword"];
 	console.log("checkReq");
 	let validationArray;
 	switch (req.url) {
@@ -19,7 +18,6 @@ const checkRequestBody = (req, res, next) => {
 			validationArray = ["email", "password"];
 			break;
 		default:
-			// res.send("Yeh error hai bhen");
 			return sendErrorMessage(
 				new AppError(404, "Unsucessful", "Requested url is not avaible"),
 				req,
@@ -27,12 +25,10 @@ const checkRequestBody = (req, res, next) => {
 			);
 			break;
 	}
-	console.log("yeh hu mai", validationArray);
 	let result = validationArray.every((key) => {
 		return req.body[key] && req.body[key].trim().length;
 	});
 	if (!result) {
-		// return res.send("Invalid body");
 		return sendErrorMessage(
 			new AppError(400, "Unsuceesful", "Invalid Body"),
 			req,
@@ -57,9 +53,7 @@ const isEmailValid = (req, res, next) => {
 };
 
 const checkConfirmPassword = (req, res, next) => {
-	// console.log("checkConfirm");
-	if (req.body.password !== req.body.confirmPassword) {
-		// return res.send("confirm password");
+	if (req.body.password === req.body.confirmPassword) {
 		return sendErrorMessage(
 			new AppError(400, "Unsucessful", "Password  does not match"),
 			req,
@@ -70,36 +64,29 @@ const checkConfirmPassword = (req, res, next) => {
 };
 
 const isEmailUnquie = (req, res, next) => {
-	console.log("isEMail");
 	let findUser = users.find((user) => {
 		return user.email == req.body.email;
 	});
-
 	if (findUser) {
-		// return res.send("alreday regi");
 		return sendErrorMessage(
 			new AppError(401, "Unsucessul", "Already registered"),
 			req,
 			res
 		);
 	}
+
 	next();
 };
 
 const createPasswordHash = async (req, res, next) => {
-	console.log("cratetePasss");
 	try {
 		let salt = await bcrypt.genSalt(10);
-		req.body.password = await bcrypt.hash(re.body.password, salt);
+		req.body.password = await bcrypt.hash(req.body.password, salt);
 		next();
 	} catch (err) {
+		console.log(err);
 		return sendErrorMessage(
-			new AppError(
-				500,
-				"Unsuceesful",
-				"Intrnal Error",
-				"Requst cannot be complted "
-			),
+			new AppError(500, "Unsuceesful", "Intrnal Error"),
 			req,
 			res
 		);
@@ -107,11 +94,9 @@ const createPasswordHash = async (req, res, next) => {
 };
 
 const isUserRegistered = (req, res, next) => {
-	console.log("isuserRegi");
 	let findUser = users.find((user) => {
 		return user.email == req.body.email;
 	});
-	// console.log(findUser);
 
 	if (!findUser) {
 		return sendErrorMessage(

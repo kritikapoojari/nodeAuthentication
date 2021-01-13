@@ -25,8 +25,6 @@ const singUpUser = (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
-	// console.log("Maine login hu bhai 111  ");
-
 	console.log("Current User", req.currentUser);
 
 	try {
@@ -46,12 +44,11 @@ const loginUser = async (req, res, next) => {
 			process.env.JWT_SECRET,
 			{ expiresIn: "1d" }
 		);
-		// console.log("Maine login hu bhai 222");
 
-		//console.log("genertaed token ", jwtToken);
+		console.log("genertaed token ", jwtToken);
 		//login and password
 		console.log("User", req.currentUser);
-		// res.send("User logged in sucessfully");
+		res.send("User logged in sucessfully");
 
 		res.cookie("jwt", jwtToken);
 		res.status(200).json({
@@ -62,9 +59,8 @@ const loginUser = async (req, res, next) => {
 				},
 			],
 		});
-		// res.send("USer logged in sucessfully");
+		res.send("USer logged in sucessfully");
 	} catch (err) {
-		// res.send("Error hai bhai");
 		console.log(err);
 		return sendErrorMessage(
 			new AppError(400, "Unsucessful", "Internal Error"),
@@ -72,7 +68,6 @@ const loginUser = async (req, res, next) => {
 			res
 		);
 	}
-	// console.log("Maine login hu bhai 3rd vala");
 };
 
 module.exports.singUpUser = singUpUser;
