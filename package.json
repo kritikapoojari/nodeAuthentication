@@ -4,7 +4,8 @@
   "description": "Node Js user authetication using json files",
   "main": "index.js",
   "scripts": {
-    "test": "node app.js"
+    "start": "node app.js"
+    
   },
   "keywords": [
     "node",
