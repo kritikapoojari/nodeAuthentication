@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const sendErrorMessage = require("../helpers/sendErrorMessage");
 const AppError = require("../helpers/appError");
+const { json } = require("express");
 const fileName = path.join(__dirname, "..", "data", "users.json");
 const users = JSON.parse(fs.readFileSync(fileName, "utf-8"));
 
@@ -38,9 +39,12 @@ const protectRoute = async (req, res, next) => {
 		);
 	}
 	// check verification
-	req.currentUser = currentUser;
+	res.status("200"),
+		json({
+			email: currentUser,
+		});
 	// give access
-	next();
+	// next();
 };
 
 module.exports = protectRoute;
